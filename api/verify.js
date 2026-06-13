@@ -17,6 +17,6 @@ export default async function handler(req, res) {
       preview: html.substring(0, 1000)
     });
   } catch (err) {
-    return res.status(500).json({ found: false, error: 'Lookup failed' });
+    return res.status(500).json({ found: false, error: err.message, code: err.code});
   }
 }
