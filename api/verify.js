@@ -18,6 +18,11 @@ export default async function handler(req, res) {
     });
   } catch (err) {
     console.error('FETCH ERROR:', err);
-    return res.status(500).json({ found: false, error: err.message, code: err.code});
+    return res.status(500).json({
+      found: false,
+      error: err.message,
+      cause: err.cause ? err.cause.message : null,
+      causeCode: err.cause ? err.cause.code : null
+    });
   }
 }
