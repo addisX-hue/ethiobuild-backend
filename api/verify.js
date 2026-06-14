@@ -4,25 +4,9 @@ export default async function handler(req, res) {
 
   const { id } = req.query;
 
-  if (!id) {
-    return res.status(400).json({ found: false, error: 'No transaction ID provided' });
+  if (!id || id.trim().length < 6) {
+    return res.status(400).json({ valid: false });
   }
 
-  try {
-    const response = await fetch(`https://example.com`);
-    const html = await response.text();
-
-    return res.status(200).json({
-      status: response.status,
-      preview: html.substring(0, 1000)
-    });
-  } catch (err) {
-    console.error('FETCH ERROR:', err);
-    return res.status(500).json({
-      found: false,
-      error: err.message,
-      cause: err.cause ? err.cause.message : null,
-      causeCode: err.cause ? err.cause.code : null
-    });
-  }
+  return res.status(200).json({ valid: true });
 }
